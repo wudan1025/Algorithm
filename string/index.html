@@ -10,10 +10,26 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    /* audio::-webkit-media-controls-mute-button,
+    audio::-webkit-media-controls-volume-slider, */
+    audio::-webkit-media-controls-volume-control-container {
+      display: none !important;
+    }
+
+  </style>
 </head>
 
 <body>
-  <script src="1.js"></script>
+  <div>
+    <audio controls controlsList="nodownload noplaybackrate"
+      src="https://tiku-fz-cdn.aibeike.com/source/file/english/11b01463-f041-4f7f-937f-724e7ccac432.mp3">
+
+    </audio>
+  </div>
+
+
+  <script src="3.js"></script>
 </body>
 
 </html>
