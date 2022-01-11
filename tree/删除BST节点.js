@@ -9,12 +9,12 @@ var root = {
     val: 3,
     left: {
       val: 1,
+      right: {
+        val: 2,
+      },
     },
     right: {
       val: 4,
-      left: {
-        val: 2,
-      },
       right: {
         val: 5,
       },
@@ -35,13 +35,13 @@ var root = {
 // 是叶子节点直接删除
 // 有左右节点，左边选 做大值，右边选最小值 覆盖删除节点
 
-// 开始 6:28 结束 6:39 有问题
+
 
 // 我的
 function del_bstTree(root, val) {
   if (!root) return;
   if (root.val && root.val == val) {
-    debugger;
+    debugger
     // 有左子树
     if (root.left) {
       // 左子树找最大的值
@@ -50,28 +50,39 @@ function del_bstTree(root, val) {
         bigRoot = bigRoot.right;
       }
       root.val = bigRoot.val;
-      bigRoot = {};
+      // 将左子树最大元素删除后返回
+      root.left = del_bstTree(root.left, bigRoot.val)
     } else if (root.right) {
       // 右子树找最小的
-      var small = root.right;
-      while (small.left) {
-        small = small.left;
+      var smallRoot = root.right;
+      while (smallRoot.left) {
+        smallRoot = smallRoot.left;
       }
-      root.val = small.val;
-      small = {};
+      root.val = smallRoot.val;
+      // 将最小右子树的元素 删除掉 最小元素再返回
+      root.right = del_bstTree(root.right, smallRoot.val)
     } else if (!root.left && !root.right) {
       // 没有左右节点，直接删除
       root = null;
     }
   } else if (root.val > val) {
-    del_bstTree(root.left, val);
+    root.left = del_bstTree(root.left, val);
   } else {
-    del_bstTree(root.right, val);
+    root.right = del_bstTree(root.right, val);
   }
   return root;
 }
 
-console.log(del_bstTree(root, 1));
+// 删除叶子节点
+// console.log(del_bstTree(root, 2));
+
+// 删除 中间节点 只有右子树
+// console.log(del_bstTree(root, 4));
+
+// 删除中间节点 左右子树都有
+// console.log(del_bstTree(root, 3));
+
+
 
 // 作者的
 function deleteNode(root, n) {
@@ -125,4 +136,11 @@ function findMin(root) {
   return root;
 }
 
-// console.log(deleteNode(root, 1));
+// 删除叶子节点
+// console.log(deleteNode(root, 2));
+
+// 删除 中间节点 只有右子树
+// console.log(deleteNode(root, 4));
+
+// 删除中间节点 左右子树都有
+// console.log(deleteNode(root, 3));
