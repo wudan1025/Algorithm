@@ -3,35 +3,49 @@
  * @description: 文件描述
  */
 
-// todo
-var arr = [5, 3, 2, 4, 1];
-// 开始 5:47 结束
+// var arr = [5, 3, 2, 4, 1];
+var arr2 = [5, 2, 4, 1, 3]
 // 算法 复杂度 O(n^2)
+// 我的写法
 function insertSort(arr) {
-  let cur;
+  let tmp
   // 第0个默认有序不需要比较,所以 i 从 1开始
   for (let i = 1; i < arr.length; i++) {
     // i 是当前要插入元素
     // i 与 0 - (i-1) 比较
-    // debugger;
     let j = i - 1;
     while (j >= 0) {
-      if (i == 3) {
-        debugger;
-      }
-      if (arr[i] < arr[j] && j > 0) {
-        j--;
-      } else {
-        console.log(j);
-        break;
-      }
+      // 当 j > 0 时，插入的位置 是占用的具体的位置。所以 当值大于时需要++才正确
+      // 写法1
+      // if (arr[i] < arr[j] && j > 0) {
+      //   j--;
+      // } else if (arr[i] > arr[j] && j > 0) {
+      //   j++;
+      //   break;
+      // } else if (j <= 0) {
+      //   break
+      // }
+
+      // 写法2 todo 不明白
+      // if (arr[i] < arr[j] && j > 0) {
+      //   tmp = arr[j]
+      //   arr[j] = arr[i]
+      //   j--;
+      // } else {
+      //   break;
+      // }
+
+
     }
     // 插入有问题 todo
     console.log(j);
-    var item = arr.splice(i, 1);
+    console.log('-----')
     console.log('插入前' + arr);
+    var item = arr.splice(i, 1);
+    console.log('删除要插入元素' + arr);
     arr.splice(j, 0, item[0]);
     console.log('插入后' + arr);
+    console.log('-----')
     // for (let j = i - 1; j >= 0; j--) {
     //   // debugger;
     //   if (arr[j] > arr[cur]) {
@@ -43,7 +57,7 @@ function insertSort(arr) {
   return arr;
 }
 
-insertSort(arr);
+insertSort(arr2);
 
 // 作者的
 // function insertSort(arr) {
@@ -58,6 +72,7 @@ insertSort(arr);
 //     temp = arr[i];
 //     // 判断 j 前面一个元素是否比 temp 大
 //     while (j > 0 && arr[j - 1] > temp) {
+//       // 移动值，而不是插入
 //       // 如果是，则将 j 前面的一个元素后移一位，为 temp 让出位置
 //       arr[j] = arr[j - 1];
 //       j--;
