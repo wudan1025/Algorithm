@@ -3,12 +3,12 @@
  * @description: 文件描述
  */
 
-// var arr = [5, 3, 2, 4, 1];
-var arr2 = [5, 2, 4, 1, 3]
+var arr = [5, 3, 2, 4, 1];
+var arr2 = [5, 2, 4, 1, 3];
 // 算法 复杂度 O(n^2)
 // 我的写法
+// 方法1
 function insertSort(arr) {
-  let tmp
   // 第0个默认有序不需要比较,所以 i 从 1开始
   for (let i = 1; i < arr.length; i++) {
     // i 是当前要插入元素
@@ -17,47 +17,49 @@ function insertSort(arr) {
     while (j >= 0) {
       // 当 j > 0 时，插入的位置 是占用的具体的位置。所以 当值大于时需要++才正确
       // 写法1
-      // if (arr[i] < arr[j] && j > 0) {
-      //   j--;
-      // } else if (arr[i] > arr[j] && j > 0) {
-      //   j++;
-      //   break;
-      // } else if (j <= 0) {
-      //   break
-      // }
-
-      // 写法2 todo 不明白
-      // if (arr[i] < arr[j] && j > 0) {
-      //   tmp = arr[j]
-      //   arr[j] = arr[i]
-      //   j--;
-      // } else {
-      //   break;
-      // }
-
-
+      if (arr[i] < arr[j] && j > 0) {
+        j--;
+      } else if (arr[i] > arr[j] && j > 0) {
+        j++;
+        break;
+      } else if (j <= 0) {
+        break;
+      }
     }
-    // 插入有问题 todo
-    console.log(j);
-    console.log('-----')
-    console.log('插入前' + arr);
     var item = arr.splice(i, 1);
-    console.log('删除要插入元素' + arr);
     arr.splice(j, 0, item[0]);
-    console.log('插入后' + arr);
-    console.log('-----')
-    // for (let j = i - 1; j >= 0; j--) {
-    //   // debugger;
-    //   if (arr[j] > arr[cur]) {
-    //     // debugger;
-    //   }
-    // }
   }
   console.log(arr);
   return arr;
 }
 
-insertSort(arr2);
+// 我的写法
+// 方法2
+function insertSort2(arr) {
+  // 第0个默认有序不需要比较,所以 i 从 1开始
+  for (let i = 1; i < arr.length; i++) {
+    let j = i,
+      tmp = arr[i];
+    while (j >= 0) {
+      // tmp 是当前要插入元素
+      // tmp 与 0 - (i-1)/(j-1) 比较
+      if (tmp < arr[j - 1] && j > 0) {
+        // 插入元素比前一个元素小时，这个元素后移一位，
+        // 给这个元素让出位置
+        arr[j] = arr[j - 1];
+        j--;
+      } else {
+        // 找到最终位置，替换
+        arr[j] = tmp;
+        break;
+      }
+    }
+  }
+  console.log(arr);
+  return arr;
+}
+
+insertSort2(arr2);
 
 // 作者的
 // function insertSort(arr) {
