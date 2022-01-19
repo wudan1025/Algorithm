@@ -8,55 +8,42 @@
 
 var arr = [5, 1, 3, 6, 2, 0, 7];
 
+// 时间复杂度 O(nlog(n))
 // 我的写法
+// 注意点：
+// 1. left,rigth 是与基准值进行比较，而不是基准值在的idx
+// 2. 每次找到左边比基准值大的，右边比基准值小的，左右两边的值进行交换
+// 3. 每次交换时，只有值进行交换，左右指针不交换，而是各往中间走一步(走一步是因为，当前的值是交换过来的值，已经对比过了)
+// 4. 当 right < left 时 结束此次排序
+// 5. 根据基准值切分下一次左右数组，如果一边数组为空，表示当前已是全部有序状态，不需要再次排序，直接返回
 function quickSort(arr, left = 0, right = arr.length - 1) {
   if (!arr || arr.length <= 1) return arr;
-  var resultLeft, resultRight;
   var middle = parseInt(arr.length / 2);
   var middleValue = arr[middle];
-  // debugger;
   while (left <= right) {
-    // debugger;
     while (arr[left] < middleValue) {
       left++;
     }
     while (arr[right] > middleValue) {
       right--;
     }
-    // debugger;
 
-    // if (arr[left] > arr[right]) {
     if (left <= right) {
       swap(arr, left, right);
-      // console.log(arr);
       left++;
       right--;
     }
-
-    // debugger;
-
-    // debugger;
   }
-  debugger;
-  // console.log(arr);
-  // console.log(arr[left]);
-  // console.log(left);
-  // console.log()
-  // debugger;
-  // console.log(arr);
-  console.log('------');
-  console.log('left' + left);
-  console.log('middle' + middle);
-  console.log(arr.slice(0, middle));
-  console.log(arr.slice(middle));
-  console.log('------');
+
+  console.log('本次排序结果: ');
+  console.log(arr);
 
   var leftArr = arr.splice(0, left),
     rightArr = arr;
 
-  console.log('leftArr');
+  console.log('下一次排序leftArr');
   console.log(leftArr);
-  console.log('rightarr');
+  console.log('下一次排序rightarr');
   console.log(rightArr);
 
   if (rightArr.length == 0) {
@@ -73,10 +60,8 @@ function quickSort(arr, left = 0, right = arr.length - 1) {
     rightArr = quickSort(rightArr);
   }
 
-  // debugger;
-
-  function swap(arr, key1, middle) {
-    [arr[key1], arr[middle]] = [arr[middle], arr[key1]];
+  function swap(arr, key1, key2) {
+    [arr[key1], arr[key2]] = [arr[key2], arr[key1]];
     return key1;
   }
 
