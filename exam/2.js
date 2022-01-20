@@ -25,33 +25,24 @@
 // 我的写法
 function createTree(preArr, midArr) {
   let curRoot = preArr.shift();
-  let leftIdx = midArr.indexOf(curRoot);
-  let leftArr = midArr.splice(0, leftIdx);
   let root = {
     val: curRoot,
   };
+  // 当前是叶子只有一个
+  if (midArr.length == 1) return root;
+  // 找到左子树idx
+  let leftIdx = midArr.indexOf(curRoot);
+  // 找到左子树arr
+  let leftArr = midArr.splice(0, leftIdx);
+  // 找到右子树arr
   let rightArr = midArr.splice(1);
   if (leftArr.length >= 1) {
-    if (leftArr.length == 1) {
-      root.left = {
-        val: leftArr[0],
-      };
-      preArr.shift();
-    } else {
-      root.left = createTree(preArr, leftArr);
-    }
+    root.left = createTree(preArr, leftArr);
   }
   if (rightArr.length >= 1) {
-    if (rightArr.length == 1) {
-      root.right = {
-        val: rightArr[0],
-      };
-      preArr.shift();
-    } else {
-      root.right = createTree(preArr, rightArr);
-    }
+    root.right = createTree(preArr, rightArr);
   }
-  // console.log(root);
+  console.log(root);
   return root;
 }
 
@@ -59,7 +50,7 @@ let preArr = [3, 9, 20, 15, 7];
 let midArr = [9, 3, 15, 20, 7];
 console.log(createTree(preArr, midArr));
 
-// 作者的写法 todo
+// 作者的写法
 const buildTree = function (preorder, inorder) {
   // 缓存结点总个数（遍历序列的长度）
   const len = preorder.length;
