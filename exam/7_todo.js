@@ -57,62 +57,41 @@ var root = {
     },
   },
 };
+// 我的写法修改后正确，需要 重新默写
 
 function findParent(root, val1, val2) {
-  let flag1 = false,
-    flag1lay,
-    flag2lay,
-    flag2 = false,
-    first = false,
-    result,
-    lay = 0;
-
-  function find(root, lay) {
-    if (root.val == undefined) {
-      return;
+  function find(root) {
+    // debugger
+    if (!root || root.val == undefined) {
+      // 只有此时，返回的是 false
+      return root;
     }
-
-    if (root.left) {
-      find(root.left, lay + 1);
-      if (flag1 && flag2 && !first) {
-        result = root;
-        first = true;
-      }
-    }
-
-    if (root.right) {
-      find(root.right, lay + 1);
-      if (flag1 && flag2 && !first) {
-        result = root;
-        first = true;
-      }
-    }
-
+    // console.log(root.val)
     if (root.val == val1) {
-      // debugger;
-      flag1 = true;
-      flag1lay = lay;
-      if (flag1 && flag2 && !first) {
-        result = root;
-        first = true;
-      }
+      // debugger
+      return root
     }
     if (root.val == val2) {
-      flag2 = true;
-      flag2lay = lay;
-      if (flag1 && flag2 && !first) {
-        result = root;
-        first = true;
-      }
+      // debugger
+      return root
     }
+
+    let leftResult = find(root.left);
+    let rightResult = find(root.right);
+
+    // 两个节点都为true
+    if (leftResult && rightResult) {
+      return root
+    }
+    return leftResult || rightResult
   }
-  find(root, lay);
-  console.log(result);
-  console.log(flag1lay);
-  console.log(flag2lay);
+  return find(root)
 }
 
-// findParent(root, 2, 0);
+// 问题 如果是父子节点，可能会出现，另一个节点不存在的情况
+// 需要出题限制
+result = findParent(root, 2, 9);
+console.log(result)
 
 // 作者的做法
 /**
@@ -151,4 +130,4 @@ const lowestCommonAncestor = function (root, p, q) {
   return dfs(root);
 };
 
-console.log(lowestCommonAncestor(root, 2, 6));
+// console.log(lowestCommonAncestor(root, 2, 6));
