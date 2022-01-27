@@ -29,23 +29,4 @@
 2 阶 + 1 阶
 */
 
-function step(nums) {
-  let resultLen;
-  if (nums == 1) resultLen = 1;
-  if (nums > 1) {
-    resultLen = 1;
-    while (nums != 0) {
-      if (nums % 2 == 0) {
-        resultLen += parseInt(nums / 2);
-        break;
-      } else {
-        resultLen += parseInt(nums / 2);
-        resultLen += nums.length - 1;
-        break;
-      }
-    }
-  }
-  return resultLen;
-}
 
-console.log(step(2));
